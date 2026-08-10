@@ -9,23 +9,10 @@
   function qs(sel){ return document.querySelector(sel); }
   function qsa(sel){ return Array.from(document.querySelectorAll(sel)); }
 
-  function setUsdDisabled(disabled){
-    qsa('input[name*="[usd_min]"], input[name*="[usd_max]"]').forEach(function(inp){
-      inp.disabled = disabled;
-    });
-    const hint = qs('#epayco-usd-hint');
-    if (hint){
-      hint.textContent = disabled
-        ? 'USD automático: se calcula con la TRM del día (bloqueado).'
-        : 'USD manual: puedes escribir tus propios valores (sin recargar).';
-    }
-    const pill = qs('#epayco-usd-pill');
-    if (pill){
-      pill.classList.toggle('epayco-sc-badge-ok', disabled);
-      pill.classList.toggle('epayco-sc-badge-warn', !disabled);
-      pill.textContent = disabled ? 'USD automático' : 'USD manual';
-    }
-  }
+  // USD siempre automático: bloquear campos USD permanentemente
+  qsa('input[name*="[usd_min]"], input[name*="[usd_max]"]').forEach(function(inp){
+    inp.disabled = true;
+  });
 
   document.addEventListener('DOMContentLoaded', function(){
     initColor();
@@ -89,15 +76,7 @@
       });
     }
 
-    const auto = qs('input[name*="[auto_usd_limits]"]');
-    if (auto) {
-      // initial state
-      setUsdDisabled(!!auto.checked);
-
-      auto.addEventListener('change', function(){
-        setUsdDisabled(!!auto.checked);
-      });
-    }
+    // USD siempre automático: no hay toggle manual
 
     // Dynamic numeric formatting for limits inputs
     function formatAmountInput(val, cur) {

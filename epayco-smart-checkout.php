@@ -2,7 +2,7 @@
 /**
  * Plugin Name: ePayco Smart Checkout
  * Description: Shortcode + UI + ePayco Smart Checkout v2 usando sessionId (Apify). Panel de ajustes. Compatible con Elementor.
- * Version: 1.2.5
+ * Version: 1.2.6
  * Author: Daniel Rozo
  * Author URI: https://danielrozo.com/
  */
@@ -12,7 +12,7 @@ if (!defined('ABSPATH'))
 
 define('EPAYCO_SCS_OPT_KEY', 'epayco_scs_settings');
 define('EPAYCO_SCS_TRM_TRANSIENT', 'epayco_scs_trm_today');
-define('EPAYCO_SCS_VERSION', '1.2.5');
+define('EPAYCO_SCS_VERSION', '1.2.6');
 define('EPAYCO_SCS_GITHUB_REPO', 'danielrozocom/epayco-smart-checkout');
 
 /**
@@ -344,20 +344,19 @@ function epayco_scs_get_settings()
     $saved = [];
   $settings = array_merge(epayco_scs_defaults(), $saved);
 
-  // Si auto_usd_limits está activo (siempre forzado a 1 en sanidad), recalcular dinámicamente según la TRM actual
-  if (isset($settings['auto_usd_limits']) && (int) $settings['auto_usd_limits'] === 1) {
-    $trm = epayco_scs_get_trm_today();
-    $trm_value = floatval($trm['trm'] ?? 4000);
-    if ($trm_value <= 0) {
-      $trm_value = 4000;
-    }
-    $settings['usd_min'] = ceil(($settings['cop_min'] / $trm_value) * 100) / 100;
-    $settings['usd_max'] = floor(($settings['cop_max'] / $trm_value) * 100) / 100;
+  // USD automático siempre activo: recalcular dinámicamente según la TRM actual
+  $settings['auto_usd_limits'] = 1;
+  $trm = epayco_scs_get_trm_today();
+  $trm_value = floatval($trm['trm'] ?? 4000);
+  if ($trm_value <= 0) {
+    $trm_value = 4000;
+  }
+  $settings['usd_min'] = ceil(($settings['cop_min'] / $trm_value) * 100) / 100;
+  $settings['usd_max'] = floor(($settings['cop_max'] / $trm_value) * 100) / 100;
 
-    // Asegurar que min <= max
-    if ($settings['usd_min'] > $settings['usd_max']) {
-      $settings['usd_min'] = $settings['usd_max'];
-    }
+  // Asegurar que min <= max
+  if ($settings['usd_min'] > $settings['usd_max']) {
+    $settings['usd_min'] = $settings['usd_max'];
   }
 
   return $settings;
@@ -486,7 +485,7 @@ add_action('admin_init', function () {
   add_settings_field('show_currency', 'Mostrar selector de divisa', 'epayco_scs_field_show_currency', 'epayco-smart-checkout', 'epayco_scs_main');
 
   add_settings_field('limits', 'Límites de Pago (Mínimo y Máximo)', 'epayco_scs_field_limits', 'epayco-smart-checkout', 'epayco_scs_main');
-  add_settings_field('auto_usd_limits', 'USD (automático)', 'epayco_scs_field_auto_usd_limits', 'epayco-smart-checkout', 'epayco_scs_main');
+  add_settings_field('auto_usd_limits', 'USD (automático)', 'epayco_scs_field_auto_usd_limits_forced', 'epayco-smart-checkout', 'epayco_scs_main');
 });
 
 function epayco_scs_is_hex_color($c)
@@ -551,25 +550,16 @@ function epayco_scs_sanitize_settings($input)
   $out['cop_max'] = $cop_max_raw !== '' ? max(0, floatval($cop_max_clean)) : $d['cop_max'];
 
 
-  $out['auto_usd_limits'] = isset($input['auto_usd_limits']) ? 1 : 0;
+  // USD automático siempre activo: se calcula desde COP usando la TRM del día
+  $out['auto_usd_limits'] = 1;
 
-  if ((int) $out['auto_usd_limits'] === 1) {
-    $trm = epayco_scs_get_trm_today();
-    $trm_value = floatval($trm['trm'] ?? 4000);
-    if ($trm_value <= 0)
-      $trm_value = 4000;
+  $trm = epayco_scs_get_trm_today();
+  $trm_value = floatval($trm['trm'] ?? 4000);
+  if ($trm_value <= 0)
+    $trm_value = 4000;
 
-    $out['usd_min'] = ceil(($out['cop_min'] / $trm_value) * 100) / 100;
-    $out['usd_max'] = floor(($out['cop_max'] / $trm_value) * 100) / 100;
-  } else {
-    $usd_min_raw = isset($input['usd_min']) ? sanitize_text_field($input['usd_min']) : '';
-    $usd_min_clean = str_replace(',', '', $usd_min_raw);
-    $out['usd_min'] = $usd_min_raw !== '' ? max(0, floatval($usd_min_clean)) : $d['usd_min'];
-
-    $usd_max_raw = isset($input['usd_max']) ? sanitize_text_field($input['usd_max']) : '';
-    $usd_max_clean = str_replace(',', '', $usd_max_raw);
-    $out['usd_max'] = $usd_max_raw !== '' ? max(0, floatval($usd_max_clean)) : $d['usd_max'];
-  }
+  $out['usd_min'] = ceil(($out['cop_min'] / $trm_value) * 100) / 100;
+  $out['usd_max'] = floor(($out['cop_max'] / $trm_value) * 100) / 100;
 
 
   // Ensure min <= max
@@ -748,20 +738,6 @@ function epayco_scs_field_font_mode()
 <?php }
 
 
-function epayco_scs_field_auto_usd_limits()
-{
-  $s = epayco_scs_get_settings(); ?>
-  <label>
-    <input type="checkbox" name="<?php echo esc_attr(EPAYCO_SCS_OPT_KEY); ?>[auto_usd_limits]" value="1" <?php checked((int) $s['auto_usd_limits'], 1); ?> />
-    Sincronizar USD automáticamente desde COP usando la TRM del día
-  </label>
-  <div class="epayco-sc-inline" style="margin-top:8px;">
-    <span id="epayco-usd-pill" class="epayco-sc-pill"></span>
-    <span id="epayco-usd-hint" class="epayco-sc-admin-small"></span>
-  </div>
-  <p class="description">Tip: si desactivas el automático, puedes editar USD al vuelo (sin recargar).</p>
-<?php }
-
 function epayco_scs_field_currency()
 {
   $s = epayco_scs_get_settings(); ?>
@@ -804,19 +780,18 @@ function epayco_scs_field_limits()
         <span style="font-weight: 600; color: #2b3990; display: block; margin-bottom: 6px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px;">Dólares Americanos (USD)</span>
         <div style="margin-bottom: 8px;">
           <label style="font-size: 12px; font-weight: 500; color: #64748b;">Monto Mínimo</label>
-          <?php $usdDisabled = ((int) $s['auto_usd_limits'] === 1) ? 'disabled' : ''; ?>
           <input type="text" class="regular-text epayco-sc-amount-input" data-currency="USD" name="<?php echo $key; ?>[usd_min]"
-            value="<?php echo number_format((float)$s['usd_min'], 2, '.', ','); ?>" <?php echo $usdDisabled; ?> style="margin-top: 4px;" />
+            value="<?php echo number_format((float)$s['usd_min'], 2, '.', ','); ?>" disabled style="margin-top: 4px;" />
         </div>
         <div>
           <label style="font-size: 12px; font-weight: 500; color: #64748b;">Monto Máximo</label>
           <input type="text" class="regular-text epayco-sc-amount-input" data-currency="USD" name="<?php echo $key; ?>[usd_max]"
-            value="<?php echo number_format((float)$s['usd_max'], 2, '.', ','); ?>" <?php echo $usdDisabled; ?> style="margin-top: 4px;" />
+            value="<?php echo number_format((float)$s['usd_max'], 2, '.', ','); ?>" disabled style="margin-top: 4px;" />
         </div>
       </div>
     </div>
     <p class="description" style="margin: 0; padding-top: 8px; border-top: 1px solid #e2e8f0;">
-      COP siempre editable. USD se calcula automáticamente desde COP usando la TRM del día si la opción "USD (automático)" está activa.
+      COP siempre editable. USD se calcula automáticamente desde COP usando la TRM del día.
     </p>
   </div>
 <?php }
@@ -876,7 +851,7 @@ function epayco_scs_enqueue_front_assets()
       'COP' => ['min' => (float) $s['cop_min'], 'max' => (float) $s['cop_max']],
       'USD' => ['min' => (float) $s['usd_min'], 'max' => (float) $s['usd_max']],
     ],
-    'autoUsdLimits' => (int) $s['auto_usd_limits'] === 1,
+    'autoUsdLimits' => true,
   ]);
 }
 

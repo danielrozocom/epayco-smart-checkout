@@ -1,5 +1,5 @@
 === ePayco Smart Checkout ===
-Stable tag: 1.2.3
+Stable tag: 1.2.6
 
 Cambios:
 - Autor: Daniel Rozo (https://danielrozo.com/)
@@ -8,10 +8,10 @@ Cambios:
 - Form sin borde/sombra (se integra con tu diseño).
 - Límites por divisa:
   - COP siempre editable.
-  - USD manual o sincronizado automáticamente desde COP usando TRM del día (cuando está activo, USD se bloquea).
+  - USD siempre sincronizado automáticamente desde COP usando la TRM del día (bloqueado).
 - En móvil siempre abre checkout en modo standard (no configurable) para evitar zoom.
 
-- UX admin mejorada + toggle USD manual/auto sin recargar.
+- UX admin mejorada + USD siempre automático desde COP (sin toggle manual).
 
 - Mensajes mejorados: 'Creando sesión…' y si está en standard: 'Redirigiendo al checkout…'.
 
@@ -52,3 +52,5 @@ Cambios:
 - v1.2.4: Fix de compatibilidad: se envolvió el objeto de configuración del checkout en un Proxy de JavaScript para ocultar dinámicamente la propiedad `key`. Esto soluciona los errores de "Expected a value of type never" causados por prototype pollution (cuando otros plugins o temas de WordPress definen Object.prototype.key de forma global).
 
 - v1.2.5: Simplificación del sistema de actualización: se eliminó la dependencia de GitHub Actions. WordPress ahora consulta la API de etiquetas (Tags) de GitHub y descarga el zipball generado automáticamente por GitHub directamente.
+
+- v1.2.6: USD siempre automático desde COP usando la TRM del día. Se eliminó el toggle manual de USD y los campos USD quedan permanentemente bloqueados en el admin.

@@ -15,7 +15,7 @@ Plugin de WordPress para integrar el **ePayco Smart Checkout v2** mediante `sess
 - **Límites de monto** configurables por divisa (COP y USD).
   - COP con formato de miles automático (`5.000`, `50.000`…).
   - USD con decimales (`1,250.00`).
-  - Opción de sincronización automática de USD desde COP usando la **TRM del día**.
+  - USD siempre sincronizado automáticamente desde COP usando la **TRM del día** (bloqueado).
 - **TRM actualizada diariamente** desde la API oficial del gobierno de Colombia (`datos.gov.co`) con fallback a `co.dolarapi.com`.
 - Selector de divisa opcional (COP / USD).
 - Validación en tiempo real del monto ingresado (bloquea el botón si está fuera del rango configurado).
@@ -51,7 +51,7 @@ Plugin de WordPress para integrar el **ePayco Smart Checkout v2** mediante `sess
 | Divisa por defecto           | `COP` o `USD`.                                                              |
 | Mostrar selector de divisa   | Muestra u oculta el selector al usuario.                                    |
 | Límites de Pago              | Monto mínimo y máximo para COP y USD.                                       |
-| USD automático               | Calcula los límites en USD desde COP usando la TRM del día.                 |
+| USD automático               | USD se calcula siempre desde COP usando la TRM del día (bloqueado). |
 | Color del botón              | Color hex del botón de pago.                                                |
 | Fuente                       | Google Fonts (preset) o URL personalizada.                                  |
 
