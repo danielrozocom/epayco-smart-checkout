@@ -429,38 +429,33 @@
         const isTest = String(window.EPAYCO_SC.test) === "1";
 
         console.log("ePayco SC Config:", { sessionId, mode, test: isTest });
+        console.log("sessionId type:", typeof sessionId, "value:", sessionId);
 
-        // Try multiple config formats to handle ePayco checkout-v2.js API changes
-        const config = Object.freeze(Object.assign(Object.create(null), {
+        // According to official ePayco docs, configure() expects a plain object with sessionId, type, test
+        const checkout = window.ePayco.checkout.configure({
           sessionId: sessionId,
           type: mode,
           test: isTest,
-        }));
-
-        let checkout;
-        try {
-          checkout = window.ePayco.checkout.configure(config);
-        } catch (configErr) {
-          console.warn("configure(config) failed, trying alternative API:", configErr);
-          // Fallback: try passing sessionId directly as string argument
-          try {
-            checkout = window.ePayco.checkout.configure(sessionId);
-          } catch (directErr) {
-            console.error("Both configure methods failed:", directErr);
-            throw configErr;
-          }
-        }
-
-        checkout.onErrors((errors) => {
-          console.error("ePayco errors:", errors);
-          setMsg("Error abriendo el checkout 😵", "error");
-          setLoading(false);
         });
 
-        checkout.onClosed(() => {
-          // when it closes, enable inputs again
-          setLoading(false);
-          setMsg("", "");
+        // Official ePayco API uses setHooks() for event handling
+        checkout.setHooks({
+          onCreated: (data) => {
+            console.log("Checkout creado:", data);
+          },
+          onResponse: (response) => {
+            console.log("Respuesta del pago:", response);
+          },
+          onErrors: (error) => {
+            console.error("Error en el pago:", error);
+            setMsg("Error abriendo el checkout 😵", "error");
+            setLoading(false);
+          },
+          onClosed: (errors) => {
+            console.log("Checkout cerrado.", errors);
+            setLoading(false);
+            setMsg("", "");
+          },
         });
 
         checkout.open();

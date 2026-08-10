@@ -1,5 +1,5 @@
 === ePayco Smart Checkout ===
-Stable tag: 1.2.9
+Stable tag: 1.3.0
 
 Cambios:
 - Autor: Daniel Rozo (https://danielrozo.com/)
@@ -60,3 +60,5 @@ Cambios:
 - v1.2.8: Fix definitivo: se reemplazó el Proxy por un objeto congelafo (Object.freeze) con prototipo nulo (Object.create(null)). Esto elimina por completo cualquier interferencia de prototype pollution de otros plugins/temas en la configuración del checkout.
 
 - v1.2.9: Fix de compatibilidad con checkout-v2.js: se agregó fallback para pasar sessionId directamente como string si configure(config) falla con "Expected a value of type never". Esto cubre cambios recientes en la API de ePayco.
+
+- v1.3.0: Ajuste según documentación oficial de ePayco Smart Checkout v2: configure() recibe un objeto plano con sessionId/type/test y los eventos se manejan con setHooks({ onCreated, onResponse, onErrors, onClosed }). Se eliminaron workarounds de prototype pollution y fallbacks innecesarios.
