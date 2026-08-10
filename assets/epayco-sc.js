@@ -430,11 +430,25 @@
 
         console.log("ePayco SC Config:", { sessionId, mode, test: isTest });
 
-        const checkout = window.ePayco.checkout.configure({
+        const configTarget = {
           sessionId: sessionId,
           type: mode,
           test: isTest,
+        };
+
+        // Bypasses prototype pollution of 'key' (common WordPress conflict)
+        const configProxy = new Proxy(configTarget, {
+          has(target, prop) {
+            if (prop === "key") return false;
+            return prop in target;
+          },
+          get(target, prop) {
+            if (prop === "key") return undefined;
+            return target[prop];
+          }
         });
+
+        const checkout = window.ePayco.checkout.configure(configProxy);
 
         checkout.onErrors((errors) => {
           console.error("ePayco errors:", errors);

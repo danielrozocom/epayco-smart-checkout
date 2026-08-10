@@ -2,7 +2,7 @@
 /**
  * Plugin Name: ePayco Smart Checkout
  * Description: Shortcode + UI + ePayco Smart Checkout v2 usando sessionId (Apify). Panel de ajustes. Compatible con Elementor.
- * Version: 1.2.3
+ * Version: 1.2.4
  * Author: Daniel Rozo
  * Author URI: https://danielrozo.com/
  */
@@ -12,7 +12,7 @@ if (!defined('ABSPATH'))
 
 define('EPAYCO_SCS_OPT_KEY', 'epayco_scs_settings');
 define('EPAYCO_SCS_TRM_TRANSIENT', 'epayco_scs_trm_today');
-define('EPAYCO_SCS_VERSION', '1.2.3');
+define('EPAYCO_SCS_VERSION', '1.2.4');
 define('EPAYCO_SCS_GITHUB_REPO', 'danielrozocom/epayco-smart-checkout');
 
 /**

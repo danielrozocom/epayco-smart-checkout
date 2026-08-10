@@ -91,6 +91,9 @@ epayco-smart-checkout/
 
 ## 📝 Changelog
 
+### v1.2.4
+- **Fix de compatibilidad**: envuelve el objeto de configuración del checkout en un Proxy de JavaScript para ocultar dinámicamente la propiedad `key`. Esto soluciona los errores de "Expected a value of type never" causados por prototype pollution de la propiedad `key` (común en temas o plugins de WordPress de terceros).
+
 ### v1.2.3
 - **Fix crítico**: corregido el error `At path: sessionId -- Expected a value of type never` al abrir el checkout. Se eliminó el parámetro `key` del objeto de configuración de `ePayco.checkout.configure()` al usar el flujo de sesión (incompatibles en la librería `checkout-v2.js`).
 - Formato visual de montos en el admin: COP muestra miles con puntos (`5.000`), USD con coma y decimal (`1,250.00`).
