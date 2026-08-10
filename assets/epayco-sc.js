@@ -430,21 +430,32 @@
 
         console.log("ePayco SC Config:", { sessionId, mode, test: isTest });
 
+        // Whitelist-only Proxy: blocks prototype pollution and any unexpected props
+        const allowedProps = ["sessionId", "type", "test"];
         const configTarget = {
           sessionId: sessionId,
           type: mode,
           test: isTest,
         };
 
-        // Bypasses prototype pollution of 'key' (common WordPress conflict)
         const configProxy = new Proxy(configTarget, {
           has(target, prop) {
-            if (prop === "key") return false;
-            return prop in target;
+            return allowedProps.includes(prop);
           },
           get(target, prop) {
-            if (prop === "key") return undefined;
+            if (!allowedProps.includes(prop)) return undefined;
             return target[prop];
+          },
+          ownKeys(target) {
+            return allowedProps;
+          },
+          getOwnPropertyDescriptor(target, prop) {
+            if (!allowedProps.includes(prop)) return undefined;
+            return {
+              enumerable: true,
+              configurable: true,
+              value: target[prop]
+            };
           }
         });
 

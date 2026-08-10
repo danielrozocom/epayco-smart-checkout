@@ -1,5 +1,5 @@
 === ePayco Smart Checkout ===
-Stable tag: 1.2.6
+Stable tag: 1.2.7
 
 Cambios:
 - Autor: Daniel Rozo (https://danielrozo.com/)
@@ -54,3 +54,5 @@ Cambios:
 - v1.2.5: Simplificación del sistema de actualización: se eliminó la dependencia de GitHub Actions. WordPress ahora consulta la API de etiquetas (Tags) de GitHub y descarga el zipball generado automáticamente por GitHub directamente.
 
 - v1.2.6: USD siempre automático desde COP usando la TRM del día. Se eliminó el toggle manual de USD y los campos USD quedan permanentemente bloqueados en el admin.
+
+- v1.2.7: Fix crítico: se reemplazó el Proxy de configuración del checkout por una whitelist estricta de propiedades (sessionId, type, test). Esto soluciona el error "Expected a value of type never" causado por prototype pollution agresiva en algunos temas/plugins de WordPress.
