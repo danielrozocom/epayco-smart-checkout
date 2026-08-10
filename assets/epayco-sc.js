@@ -430,14 +430,26 @@
 
         console.log("ePayco SC Config:", { sessionId, mode, test: isTest });
 
-        // Freeze & null-prototype: prevents any prototype pollution from affecting the object
+        // Try multiple config formats to handle ePayco checkout-v2.js API changes
         const config = Object.freeze(Object.assign(Object.create(null), {
           sessionId: sessionId,
           type: mode,
           test: isTest,
         }));
 
-        const checkout = window.ePayco.checkout.configure(config);
+        let checkout;
+        try {
+          checkout = window.ePayco.checkout.configure(config);
+        } catch (configErr) {
+          console.warn("configure(config) failed, trying alternative API:", configErr);
+          // Fallback: try passing sessionId directly as string argument
+          try {
+            checkout = window.ePayco.checkout.configure(sessionId);
+          } catch (directErr) {
+            console.error("Both configure methods failed:", directErr);
+            throw configErr;
+          }
+        }
 
         checkout.onErrors((errors) => {
           console.error("ePayco errors:", errors);
