@@ -1,5 +1,5 @@
 === ePayco Smart Checkout ===
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 
 Cambios:
 - Autor: Daniel Rozo (https://danielrozo.com/)
@@ -62,3 +62,5 @@ Cambios:
 - v1.2.9: Fix de compatibilidad con checkout-v2.js: se agregó fallback para pasar sessionId directamente como string si configure(config) falla con "Expected a value of type never". Esto cubre cambios recientes en la API de ePayco.
 
 - v1.3.0: Ajuste según documentación oficial de ePayco Smart Checkout v2: configure() recibe un objeto plano con sessionId/type/test y los eventos se manejan con setHooks({ onCreated, onResponse, onErrors, onClosed }). Se eliminaron workarounds de prototype pollution y fallbacks innecesarios.
+
+- v1.3.1: Fix crítico: se actualizó el versionado de assets (epayco-sc.js y admin) para usar EPAYCO_SCS_VERSION en lugar de "3.8.2" hardcodeado. Esto evita que el navegador sirva una versión cacheada vieja del script tras actualizar el plugin.

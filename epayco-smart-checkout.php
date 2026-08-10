@@ -2,7 +2,7 @@
 /**
  * Plugin Name: ePayco Smart Checkout
  * Description: Shortcode + UI + ePayco Smart Checkout v2 usando sessionId (Apify). Panel de ajustes. Compatible con Elementor.
- * Version: 1.3.0
+ * Version: 1.3.1
  * Author: Daniel Rozo
  * Author URI: https://danielrozo.com/
  */
@@ -12,7 +12,7 @@ if (!defined('ABSPATH'))
 
 define('EPAYCO_SCS_OPT_KEY', 'epayco_scs_settings');
 define('EPAYCO_SCS_TRM_TRANSIENT', 'epayco_scs_trm_today');
-define('EPAYCO_SCS_VERSION', '1.3.0');
+define('EPAYCO_SCS_VERSION', '1.3.1');
 define('EPAYCO_SCS_GITHUB_REPO', 'danielrozocom/epayco-smart-checkout');
 
 /**
@@ -368,9 +368,9 @@ add_action('admin_enqueue_scripts', function ($hook) {
   if ($hook !== 'settings_page_epayco-smart-checkout')
     return;
   wp_enqueue_style('wp-color-picker');
-  wp_enqueue_style('epayco-sc-admin', plugins_url('admin/admin.css', __FILE__), [], '3.8.2');
+  wp_enqueue_style('epayco-sc-admin', plugins_url('admin/admin.css', __FILE__), [], EPAYCO_SCS_VERSION);
   wp_enqueue_script('wp-color-picker');
-  wp_enqueue_script('epayco-sc-admin', plugins_url('admin/admin.js', __FILE__), ['wp-color-picker'], '3.8.2', true);
+  wp_enqueue_script('epayco-sc-admin', plugins_url('admin/admin.js', __FILE__), ['wp-color-picker'], EPAYCO_SCS_VERSION, true);
 });
 
 add_action('admin_menu', function () {
@@ -825,13 +825,13 @@ function epayco_scs_enqueue_front_assets()
     }
   }
 
-  wp_enqueue_style('epayco-sc', plugins_url('assets/epayco-sc.css', __FILE__), [], '3.8.2');
+  wp_enqueue_style('epayco-sc', plugins_url('assets/epayco-sc.css', __FILE__), [], EPAYCO_SCS_VERSION);
 
   // ePayco checkout library (load early for guest caches/optimizers)
   wp_enqueue_script('epayco-checkout-v2', 'https://checkout.epayco.co/checkout-v2.js', [], null, false);
 
   // Our script (keeps a fallback loader, but prefers the enqueued library)
-  wp_enqueue_script('epayco-sc', plugins_url('assets/epayco-sc.js', __FILE__), ['epayco-checkout-v2'], '3.8.2', true);
+  wp_enqueue_script('epayco-sc', plugins_url('assets/epayco-sc.js', __FILE__), ['epayco-checkout-v2'], EPAYCO_SCS_VERSION, true);
 
   $trm = epayco_scs_get_trm_today();
   wp_localize_script('epayco-sc', 'EPAYCO_SC', [
