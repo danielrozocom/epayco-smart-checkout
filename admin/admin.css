@@ -1,0 +1,243 @@
+:root {
+  --epayco-primary: #f57f20; /* ePayco Orange */
+  --epayco-secondary: #2b3990; /* ePayco Blue */
+  --epayco-bg: #f8fafc;
+  --epayco-card-bg: #ffffff;
+  --epayco-border: #e2e8f0;
+  --epayco-text: #334155;
+  --epayco-text-muted: #64748b;
+  --epayco-success-bg: #dcfce7;
+  --epayco-success-text: #166534;
+  --epayco-warn-bg: #fef9c3;
+  --epayco-warn-text: #854d0e;
+  --epayco-font: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.epayco-sc-admin-wrap {
+  font-family: var(--epayco-font);
+  color: var(--epayco-text);
+  max-width: 900px;
+  margin: 20px 20px 0 0;
+}
+
+.epayco-sc-admin-wrap h1 {
+  font-weight: 700;
+  color: var(--epayco-secondary);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* --- Cards Grid --- */
+.epayco-sc-admin-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+@media (min-width: 768px) {
+  .epayco-sc-admin-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.epayco-sc-card {
+  background: var(--epayco-card-bg);
+  border: 1px solid var(--epayco-border);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.epayco-sc-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.epayco-sc-card h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--epayco-secondary);
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* --- Status Badges --- */
+.epayco-sc-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.epayco-sc-badge-ok {
+  background: var(--epayco-success-bg);
+  color: var(--epayco-success-text);
+}
+
+.epayco-sc-badge-warn {
+  background: var(--epayco-warn-bg);
+  color: var(--epayco-warn-text);
+}
+
+/* --- Shortcode Box --- */
+code#epayco-sc-shortcode {
+  display: block;
+  background: #1e293b;
+  color: #a5b4fc;
+  padding: 12px;
+  border-radius: 6px;
+  font-family: 'Fira Code', monospace;
+  font-size: 14px;
+  margin: 10px 0;
+  text-align: center;
+  border: 1px solid #334155;
+}
+
+/* --- Buttons --- */
+.button.button-primary {
+  background: var(--epayco-secondary) !important;
+  border-color: var(--epayco-secondary) !important;
+  transition: all 0.2s;
+}
+
+.button.button-primary:hover {
+  background-color: #1e2a78 !important;
+  transform: translateY(-1px);
+}
+
+/* --- Form Styles Rewrite --- */
+.epayco-sc-admin-wrap .form-table th {
+  font-weight: 600;
+  color: var(--epayco-secondary);
+  padding: 24px 10px 24px 0;
+  width: 220px;
+}
+
+.epayco-sc-admin-wrap .form-table td {
+  padding: 24px 10px;
+}
+
+/* Inputs */
+.epayco-sc-admin-wrap input[type="text"],
+.epayco-sc-admin-wrap input[type="password"],
+.epayco-sc-admin-wrap input[type="number"],
+.epayco-sc-admin-wrap input[type="url"],
+.epayco-sc-admin-wrap select {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0 12px;
+  height: 40px;
+  line-height: normal;
+  box-shadow: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  max-width: 400px;
+}
+
+.epayco-sc-admin-wrap input:focus,
+.epayco-sc-admin-wrap select:focus {
+  border-color: var(--epayco-secondary);
+  box-shadow: 0 0 0 1px var(--epayco-secondary);
+}
+
+/* Checkboxes & Radios */
+.epayco-sc-admin-wrap input[type="checkbox"],
+.epayco-sc-admin-wrap input[type="radio"] {
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+  width: 18px;
+  height: 18px;
+}
+
+.epayco-sc-admin-wrap input[type="radio"] {
+  border-radius: 50%;
+}
+
+.epayco-sc-admin-wrap input:checked {
+  background-color: var(--epayco-secondary);
+  border-color: var(--epayco-secondary);
+}
+
+
+/* Toggle Switch Style for Checkboxes */
+.epayco-toggle {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.epayco-toggle input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.epayco-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #cbd5e1;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.epayco-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .epayco-slider {
+  background-color: var(--epayco-secondary);
+}
+
+input:checked + .epayco-slider:before {
+  transform: translateX(20px);
+}
+
+/* Helper text */
+.description, .epayco-sc-muted {
+  font-size: 13px;
+  color: var(--epayco-text-muted);
+  font-style: italic;
+}
+
+/* Sections */
+.epayco-sc-admin-wrap h2.title {
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e2e8f0;
+  margin-top: 40px;
+  font-size: 20px;
+}
+
+/* Hide number input spinners (arrows) */
+.epayco-sc-admin-wrap input[type="number"]::-webkit-outer-spin-button,
+.epayco-sc-admin-wrap input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.epayco-sc-admin-wrap input[type="number"] {
+  -moz-appearance: textfield;
+}

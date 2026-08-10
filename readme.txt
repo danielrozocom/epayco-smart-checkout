@@ -1,0 +1,50 @@
+=== ePayco Smart Checkout ===
+Stable tag: 1.2.3
+
+Cambios:
+- Autor: Daniel Rozo (https://danielrozo.com/)
+- En la lista de plugins aparece el link “Ajustes” para abrir la configuración.
+- Se eliminó el campo de Título (el formulario ya no muestra título).
+- Form sin borde/sombra (se integra con tu diseño).
+- Límites por divisa:
+  - COP siempre editable.
+  - USD manual o sincronizado automáticamente desde COP usando TRM del día (cuando está activo, USD se bloquea).
+- En móvil siempre abre checkout en modo standard (no configurable) para evitar zoom.
+
+- UX admin mejorada + toggle USD manual/auto sin recargar.
+
+- Mensajes mejorados: 'Creando sesión…' y si está en standard: 'Redirigiendo al checkout…'.
+
+- Mensaje 'Procesando…' y eliminación total de bordes del form.
+
+- Fix mobile: espera a que cargue checkout-v2.js antes de abrir; mensaje claro si un optimizador lo bloquea.
+
+- Public/Private Key ahora se configuran desde el panel del plugin (no wp-config.php).
+
+- Fix mobile: usa window.ePayco (según docs). Quitado hint de rango automático. 'Procesando…' solo en el mensaje.
+
+- v3.1: eliminado totalmente el borde del contenedor del formulario.
+
+- v3.2: mensaje único 'Procesando…'; el botón solo se deshabilita (sin cambiar texto).
+
+- v3.4: selector de divisa opcional (mostrar/ocultar) + color picker real de WordPress.
+
+- v3.5: mensaje de checkout simplificado + checkbox divisa guarda bien al desactivar + botón no cambia texto.
+
+- v3.6: eliminado cualquier borde del contenedor del shortcode.
+
+- v1.1.4: Agregada opción "URL de Respuesta" en los ajustes para redirigir al usuario a una página personalizada al finalizar el pago.
+
+- v1.1.6: Agregado formato automático de miles (puntos) al digitar el monto, enviando el valor como entero limpio a ePayco.
+
+- v1.1.7: Corregida asociación de la llave pública en la inicialización del checkout.
+
+- v1.1.9: Soporte de decimales en montos y límites de transacción, y corrección para permitir guardar y editar los límites USD manualmente al desactivar la sincronización automática.
+
+- v1.2.0: Corrección de error fatal de PHP (falta de cierre en la función epayco_scs_field_limits en la administración).
+
+- v1.2.1: Agregada validación en tiempo real para bloquear/habilitar el botón de pago y alertar si el monto está fuera del rango permitido.
+
+- v1.2.2: Reempaquetado del plugin para forzar la actualización de WordPress.
+
+- v1.2.3: Fix crítico: eliminado el parámetro `key` de `ePayco.checkout.configure()` al usar el flujo de sessionId, corrigiendo el error "At path: sessionId -- Expected a value of type never". Formato de montos en admin: COP con puntos de miles (5.000), USD con coma y decimal (1,250.00). Sanitización mejorada en PHP para guardar montos con separadores correctamente.

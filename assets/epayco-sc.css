@@ -1,0 +1,241 @@
+
+/* Match the simple form you provided (clean + readable) */
+/* High specificity to beat theme styles */
+.epayco-sc-wrap{
+  background: transparent !important;
+
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+
+  background: #fff !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  max-width: 420px !important;
+  margin: 0 auto !important;
+  padding: 20px !important;
+  font-family: var(--epayco-sc-font, 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif) !important;
+  font-size: 17px !important;
+  background: transparent !important;
+}
+
+.epayco-sc-form, .epayco-sc-form *{
+  box-sizing: border-box !important;
+}
+
+.epayco-sc-center{
+  text-align: center !important;
+}
+
+/* Labels centered, dark, visible */
+.epayco-sc-label{
+  display:block !important;
+  margin: 0 0 8px !important;
+  font-weight: 500 !important;
+  color: #111 !important;
+  opacity: 1 !important;
+}
+
+/* Inputs like Bootstrap (light border, square-ish) */
+.epayco-sc-control{
+  width: 100% !important;
+  height: 46px !important;
+  padding: 10px 12px !important;
+  margin: 0 0 15px !important;
+  border: none !important;
+  border-radius: 4px !important;
+  background: #fff !important;
+  color: #111 !important;
+  font-size: 15px !important;
+  line-height: 1.2 !important;
+  font-family: var(--epayco-sc-font, 'Poppins', sans-serif) !important;
+  outline: none !important;
+}
+
+.epayco-sc-control::placeholder{
+  color: #9aa0a6 !important;
+  opacity: 1 !important;
+}
+
+.epayco-sc-control:focus{
+  border-color: var(--epayco-sc-primary, #0d6efd) !important;
+  box-shadow: none !important;
+}
+
+/* Fix select dark/unstyled issues */
+select.epayco-sc-control{
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #666 50%),
+    linear-gradient(135deg, #666 50%, transparent 50%),
+    linear-gradient(to right, transparent, transparent) !important;
+  background-position:
+    calc(100% - 18px) calc(50% - 2px),
+    calc(100% - 13px) calc(50% - 2px),
+    calc(100% - 2.5em) 0.5em !important;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.8em !important;
+  background-repeat: no-repeat !important;
+  padding-right: 2.4em !important;
+}
+
+/* Button like your example (pill, centered, not full width) */
+.epayco-sc-btn{
+  display: inline-block !important;
+  margin-top: 6px !important;
+  padding: 10px 22px !important;
+  border: none !important;
+  border-radius: 999px !important;
+  background: var(--epayco-sc-primary, #0d6efd) !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  font-family: var(--epayco-sc-font, 'Poppins', sans-serif) !important;
+  cursor: pointer !important;
+}
+.epayco-sc-btn:hover{ filter: brightness(.98) !important; }
+.epayco-sc-btn:active{ transform: translateY(1px) !important; }
+.epayco-sc-btn[disabled]{ opacity: .7 !important; cursor: not-allowed !important; }
+
+/* Messages bigger + clear */
+.epayco-sc-msg{
+  margin-top: 14px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  display: none !important;
+  padding: 10px 12px !important;
+  border-radius: 10px !important;
+}
+.epayco-sc-msg.is-error,
+.epayco-sc-msg.is-ok,
+.epayco-sc-msg.is-info{ display:block !important; }
+
+.epayco-sc-msg.is-error{
+  color:#7a0610 !important;
+  background: rgba(220,53,69,.12) !important;
+  border: none !important;
+}
+.epayco-sc-msg.is-ok{
+  color:#0f5132 !important;
+  background: rgba(25,135,84,.12) !important;
+  border: none !important;
+}
+.epayco-sc-msg.is-info{
+  color:#084298 !important;
+  background: rgba(13,110,253,.10) !important;
+  border: none !important;
+}
+
+/* Footer note */
+
+/* Static currency when selector hidden */
+.epayco-sc-static{
+  width: 100% !important;
+  height: 46px !important;
+  margin: 0 0 15px !important;
+  border: none !important;
+  border-radius: 4px !important;
+  background: #fff !important;
+  color:#111 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  font-weight: 500 !important;
+  font-family: var(--epayco-sc-font, 'Poppins', sans-serif) !important;
+}
+
+/* Mobile spacing */
+@media (max-width: 420px){
+  .epayco-sc-wrap{
+  background: #fff !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+ padding: 18px 14px !important; }
+}
+
+
+/* v3.0 UI fixes */
+.epayco-sc-wrap{border:none !important; box-shadow:none !important; background:transparent !important;}
+.epayco-sc-control{border:1px solid #d9d9d9 !important;}
+
+/* v3.1: remove container/card border entirely (keep input borders) */
+.epayco-sc-wrap{
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+.epayco-sc-wrap:before,
+.epayco-sc-wrap:after{
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* v3.6 – eliminar cualquier borde del contenedor del shortcode */
+.epayco-smart-checkout,
+.epayco-smart-checkout *,
+.epayco-sc-shortcode,
+.epayco-sc-container{
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background: transparent !important;
+}
+
+/* v3.8.0 – quitar flechas (spinners) del input number en desktop */
+.epayco-sc-control[type="number"]::-webkit-outer-spin-button,
+.epayco-sc-control[type="number"]::-webkit-inner-spin-button{
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+.epayco-sc-control[type="number"]{
+  -moz-appearance: textfield !important; /* Firefox */
+  appearance: textfield !important;
+}
+
+/* Real-time validation styles */
+.epayco-sc-range-hint {
+  display: block !important;
+  font-size: 12px !important;
+  color: #64748b !important;
+  margin-top: -10px !important;
+  margin-bottom: 12px !important;
+  text-align: left !important;
+  min-height: 18px !important;
+  transition: color 0.2s ease !important;
+}
+
+.epayco-sc-control.is-invalid {
+  border-color: #dc3545 !important;
+}
+
+.epayco-sc-control.is-valid {
+  border-color: #198754 !important;
+}
+
+.epayco-sc-range-hint.is-invalid {
+  color: #dc3545 !important;
+}
+
+.epayco-sc-range-hint.is-valid {
+  color: #198754 !important;
+}
+
+.epayco-sc-control.is-invalid:focus {
+  box-shadow: 0 0 0 1px #dc3545 !important;
+}
+
+.epayco-sc-control.is-valid:focus {
+  box-shadow: 0 0 0 1px #198754 !important;
+}
