@@ -1,5 +1,5 @@
 === ePayco Smart Checkout ===
-Stable tag: 1.2.7
+Stable tag: 1.2.8
 
 Cambios:
 - Autor: Daniel Rozo (https://danielrozo.com/)
@@ -56,3 +56,5 @@ Cambios:
 - v1.2.6: USD siempre automático desde COP usando la TRM del día. Se eliminó el toggle manual de USD y los campos USD quedan permanentemente bloqueados en el admin.
 
 - v1.2.7: Fix crítico: se reemplazó el Proxy de configuración del checkout por una whitelist estricta de propiedades (sessionId, type, test). Esto soluciona el error "Expected a value of type never" causado por prototype pollution agresiva en algunos temas/plugins de WordPress.
+
+- v1.2.8: Fix definitivo: se reemplazó el Proxy por un objeto congelafo (Object.freeze) con prototipo nulo (Object.create(null)). Esto elimina por completo cualquier interferencia de prototype pollution de otros plugins/temas en la configuración del checkout.
