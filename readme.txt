@@ -50,3 +50,5 @@ Cambios:
 - v1.2.3: Fix crítico: eliminado el parámetro `key` de `ePayco.checkout.configure()` al usar el flujo de sessionId, corrigiendo el error "At path: sessionId -- Expected a value of type never". Formato de montos en admin: COP con puntos de miles (5.000), USD con coma y decimal (1,250.00). Sanitización mejorada en PHP para guardar montos con separadores correctamente.
 
 - v1.2.4: Fix de compatibilidad: se envolvió el objeto de configuración del checkout en un Proxy de JavaScript para ocultar dinámicamente la propiedad `key`. Esto soluciona los errores de "Expected a value of type never" causados por prototype pollution (cuando otros plugins o temas de WordPress definen Object.prototype.key de forma global).
+
+- v1.2.5: Simplificación del sistema de actualización: se eliminó la dependencia de GitHub Actions. WordPress ahora consulta la API de etiquetas (Tags) de GitHub y descarga el zipball generado automáticamente por GitHub directamente.

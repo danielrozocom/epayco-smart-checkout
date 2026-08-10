@@ -91,6 +91,9 @@ epayco-smart-checkout/
 
 ## 📝 Changelog
 
+### v1.2.5
+- **Simplificación del sistema de actualización**: se eliminó la dependencia de GitHub Actions. WordPress ahora consulta directamente la API de etiquetas (Tags) de GitHub y descarga el zipball generado automáticamente por GitHub.
+
 ### v1.2.4
 - **Fix de compatibilidad**: envuelve el objeto de configuración del checkout en un Proxy de JavaScript para ocultar dinámicamente la propiedad `key`. Esto soluciona los errores de "Expected a value of type never" causados por prototype pollution de la propiedad `key` (común en temas o plugins de WordPress de terceros).
 
